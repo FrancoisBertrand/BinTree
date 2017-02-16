@@ -9,12 +9,32 @@ public class BinTreeTest {
 
     public static void main(String[] args) {
 
-        BinTree binTree = new BinTree();
+        try {
+            // Set cross-platform Java L&F (also called "Metal")
+            UIManager.setLookAndFeel(
+                    UIManager.getCrossPlatformLookAndFeelClassName());
+            // @SuppressWarnings("unused")
 
-        ViewTree viewTree = new ViewTree(binTree);
+            ViewTree viewTree = new ViewTree();
 
+        }
+        catch (UnsupportedLookAndFeelException e) {
+            // handle exception
+        }
+        catch (ClassNotFoundException e) {
+            // handle exception
+        }
+        catch (InstantiationException e) {
+            // handle exception
+        }
+        catch (IllegalAccessException e) {
+            // handle exception®
+        }
+    }
 
-        while (true){
+ /*       BinTree binTree = new BinTree();
+
+        while (true) {
             System.out.println("################## Menü ###################\n");
             System.out.println("1) Knoten hinzufügen: ");
             System.out.println("2) Baum ausgeben: ");
@@ -26,10 +46,10 @@ public class BinTreeTest {
             System.out.println("7) Programm beenden");
 
             int auswahl = IOTools.readInteger();
-            if (auswahl < 1 && auswahl >7){
+            if (auswahl < 1 && auswahl > 7) {
                 System.out.println("Falsche eingabe");
-            }else {
-                switch (auswahl){
+            } else {
+                switch (auswahl) {
                     case 1:
                         System.out.println("Bitte tragen Sie einen Wert für den Knoten ein: ");
                         String wert = IOTools.readLine();
@@ -37,7 +57,7 @@ public class BinTreeTest {
                         System.out.println("\n");
                         break;
                     case 2:
-                        for (int i = 0; i < binTree.list.size(); i++){
+                        for (int i = 0; i < binTree.list.size(); i++) {
                             binTree.insert(binTree.list.get(i));
                         }
                         binTree.output();
@@ -68,5 +88,7 @@ public class BinTreeTest {
                 }
             }
         }
-    }
+    }*/
 }
+
+

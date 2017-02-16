@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -40,14 +41,15 @@ public class BinTree extends JPanel {
                 insertRek(node.right, d);
             }
         }
+        else if (d.compareTo(node.data) == 0){
+            System.out.println("Knoten gibt es schon");
+        }
     }
 
 
     public void remove(String wert){
-//        list.remove(wert);
         for (int i = 0; i < list.size(); i++){
             list.remove(wert);
-//            System.out.println(list.get(i));
         }
         if(this.root == null){
             return;
@@ -101,7 +103,6 @@ public class BinTree extends JPanel {
 
     public void output(){
         System.out.println("----- Tree -----\n");
-//        System.out.println("Anzahl der Elemente im Baum: " + list.size());
         deepness = 0;
         design(root);
     }
@@ -147,18 +148,15 @@ public class BinTree extends JPanel {
         list.clear();
         root = null;
 
-//        System.out.println(list.size());
         try {
             bufferedReader = new BufferedReader(new FileReader("tree.txt"));
             while ((l = bufferedReader.readLine()) != null){
                 list.add(l);
             }
-//            System.out.println(list.size());
-            bufferedReader.close();
+             bufferedReader.close();
         }
         catch (IOException e){
             System.out.println("Fehler beim Laden der Datei");
         }
     }
-
 }
