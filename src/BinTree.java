@@ -1,17 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Francois on 07/02/2017.
+ * MaNr: 553643
  */
 public class BinTree extends JPanel {
 
     public static ArrayList<String> list = new ArrayList<String>();
     public Node root = null;
     private int deepness;
+    ViewTree viewTree;
 
+    /**
+     * Methode zum einfuegen der Knoten bzw. ihrer Werte als Strings
+     * sie ruft eine Rekursive Methode zum einfuegen auf
+     * @param d = wert eines Knotens mit dem Datentyp String
+     */
     public void insert(String d){
         if (root == null){
             root = new Node(d);
@@ -22,6 +30,11 @@ public class BinTree extends JPanel {
         }
     }
 
+    /**
+     * Rekursiver aufruf zum einfuegen der Knoten und ihrere Werte
+     * @param node Knoten
+     * @param d Stringwert
+     */
     private void insertRek(Node node, String d){
         if (d.compareTo(node.data) < 0){
             if (node.left == null){
@@ -46,7 +59,10 @@ public class BinTree extends JPanel {
         }
     }
 
-
+    /**
+     * Methode ruft eine rekursive Methoden zum entfernen des gewuenschten Elements auf
+     * @param wert der zu entfernende Wert
+     */
     public void remove(String wert){
         for (int i = 0; i < list.size(); i++){
             list.remove(wert);
@@ -57,6 +73,12 @@ public class BinTree extends JPanel {
         this.root = remove(wert, this.root);
     }
 
+    /**
+     * Methode durchsucht den gesamten Binarbaum und entfernt das Element (rekursiv)
+     * @param wert der zu entfernende wert
+     * @param node der aktuell besuchte Knoten
+     * @return gibt den Wurzelknoten ohne zu entfernenden Wert zerueck
+     */
     private Node remove(String wert, Node node){
         if (node.data.compareTo(wert) > 0){
             node.left = remove(wert, node.left);
@@ -79,6 +101,11 @@ public class BinTree extends JPanel {
         return node;
     }
 
+    /**
+     * sucht den niedrigsten linken Knoten im rechten Teilbaum des Knoten
+     * @param node der aktuell durchsuchte Teilbaum / Knoten
+     * @return gibt den niedrigsten linken Knoten im rechten Teilbaum des Knoten zureuck
+     */
     private Node findLowestLeft(Node node){
         if (node.left == null){
             return node;
@@ -88,6 +115,11 @@ public class BinTree extends JPanel {
         }
     }
 
+    /**
+     * entfernt den angebenen Teilbaum / Knoten
+     * @param node der zu entfernende Knoten
+     * @return gibt den geaenderten Rechten Teilbaum zurueck
+     */
     private Node deleteLowestLeft(Node node){
         if (node.left == null){
             return node.right;
@@ -96,17 +128,30 @@ public class BinTree extends JPanel {
         return node;
     }
 
+    /**
+     * loescht den gesamten Baum
+     * erstellt einen Leeren Baum
+     */
     public void deleteTree(){
         list.clear();
         root = null;
     }
 
+    /**
+     * Methode zum ausgeben des Baumes
+     */
     public void output(){
         System.out.println("----- Tree -----\n");
         deepness = 0;
+        viewTree.textArea.setText("");
         design(root);
     }
 
+    /**
+     * gibt die Knoten bzw Werte der Knoten auf der Konsole und auf
+     * der Textarea in der View aus
+     * @param node aktuell besuchter Knoten / Teilbaum
+     */
     private void design(Node node){
         if (node != null){
             deepness++;
@@ -114,16 +159,21 @@ public class BinTree extends JPanel {
             deepness--;
             for (int i = 0; i < deepness; i++){
                 System.out.print("   ");
+                viewTree.textArea.append("      ");
             }
             System.out.println(" <- " + node.data);
+            viewTree.textArea.append(" <- " + node.data + "\n");
             deepness++;
             design(node.left);
             deepness--;
         }
     }
 
-    public void saveTree(){
 
+    /**
+     * Methode speichert / schreibt die Werte der Knoten in eine Textdatei
+     */
+    public void saveTree(){
         BufferedWriter bufferedWriter;
         String s;
 
@@ -141,6 +191,10 @@ public class BinTree extends JPanel {
         }
     }
 
+    /**
+     * Methode liest die Werte aus der Textdatei und speichert diese
+     * in die Arrayliste
+     */
     public void loadTree(){
         BufferedReader bufferedReader;
         String l;
